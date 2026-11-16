@@ -45,7 +45,7 @@ class WorkflowTest(unittest.TestCase):
             [sys.executable, str(self.root / "scripts" / (name + ".py")), *args],
             cwd=self.root, capture_output=True, text=True, encoding="utf-8",
         )
-        output = result.stdout + result.stderr
+        output = (result.stdout or "") + (result.stderr or "")
         self.assertEqual(result.returncode == 0, success, output)
         return output
 
@@ -235,7 +235,10 @@ class WorkflowTest(unittest.TestCase):
         self.run_script("split_assign", "--members", "../data,102", "--copy-images", success=False)
         output = self.root / "work"
         output.mkdir()
-        (output / "101").symlink_to(self.root / "data", target_is_directory=True)
+        try:
+            (output / "101").symlink_to(self.root / "data", target_is_directory=True)
+        except OSError:
+            self.skipTest("Symlinks require administrator privileges on Windows")
         self.run_script("split_assign", "--members", "101,102", "--copy-images", success=False)
         self.assertEqual(sorted(path.name for path in self.images.iterdir()), self.names)
 
