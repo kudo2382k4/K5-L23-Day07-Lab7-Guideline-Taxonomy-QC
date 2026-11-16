@@ -26,12 +26,20 @@ def main() -> None:
         attrs = []
         if name != tax.ignore:
             for a in tax.attrs.values():
+                default = str(a.get("default", ""))
+                if a["type"] == "select":
+                    values = [str(v) for v in a.get("values", [])]
+                elif a["type"] == "checkbox":
+                    # CVAT bản mới từ chối checkbox có values rỗng; values của checkbox là giá trị mặc định.
+                    values = [default]
+                else:
+                    values = []
                 attrs.append({
                     "name": a["name"],
                     "mutable": False,
                     "input_type": a["type"],
-                    "default_value": str(a.get("default", "")),
-                    "values": [str(v) for v in a.get("values", [])] if a["type"] == "select" else [],
+                    "default_value": default,
+                    "values": values,
                 })
         labels.append({"name": name, "color": "#808080" if name == tax.ignore else COLORS[i % len(COLORS)],
                        "attributes": attrs})
