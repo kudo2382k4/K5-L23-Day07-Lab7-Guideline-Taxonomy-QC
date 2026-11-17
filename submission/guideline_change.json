@@ -1,0 +1,4 @@
+{
+  "kind": "semantic",
+  "summary": "v1.0 -> v1.1 sau calibration (523 ca, 35 anh). Doi cach chon vat va cham thuoc tinh, khong doi taxonomy (giu 8 lop, 3 thuoc tinh, muc rules): (1) R-15 dam dong / xe may day: neu ro nguong box tung vat (cao >= 20 px do bang CVAT, thay >= 25%, tach duoc bien) va cach dat ignore_region, sua cac ca bat_dong_ignore va bo_sot_thua o img_019, img_008, img_021, img_025; (2) R-11 occluded_level: nguoi lai che xe may va xe may che chan nguoi lai deu tinh, thuong muc 1; them anh neo cho tung muc, sua cac ca lech 0/1 (img_034, img_003); (3) R-01/R-02 bien box xe may va nguoi tren xe, sua cac ca iou_thap; (4) R-05/R-06 lam ro pickup, songthaew, xe 3 banh cho hang, sua cac ca sai_lop. Vi doi nghia nen pham_vi=lo, kiem lai ca lo 40 anh."
+}
